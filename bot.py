@@ -56,7 +56,7 @@ async def messageManager(client, message):
 
     try:
         if str(message.chat.type) == "ChatType.PRIVATE":
-            if text.startswith("addKeyword"):
+            if text.startswith("add"):
                 try:
                     keyword = text.split()[1]
                     addKeyWord(keyword)
@@ -64,7 +64,7 @@ async def messageManager(client, message):
                 except:
                     pass
                 
-            elif text.startswith("delKeyword"):
+            elif text.startswith("del"):
                 try:
                     keyword = text.split()[1]
                     delKeyWord(keyword)
@@ -72,7 +72,7 @@ async def messageManager(client, message):
                 except:
                     pass
                 
-            elif text.startswith("showKeyword"):
+            elif text.startswith("show"):
                 await bot.send_message(message.chat.id, showKeywords())
                 
         elif str(message.chat.type) == "ChatType.CHANNEL":
