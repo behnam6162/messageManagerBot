@@ -31,6 +31,9 @@ def addKeyWord(keyword):
     keywords = getKeywords()
     if keyword.lower() not in keywords:
         insertKeyword(keyword)
+        return True
+    else:
+        return False
 
 def delete(keyword):
     connection_obj = sqlite3.connect('db.db')
@@ -43,6 +46,9 @@ def delKeyWord(keyword):
     keywords = getKeywords()
     if keyword.lower() in keywords:
         delete(keyword)
+        return True
+    else:
+        return False
 
 def messageValiddation(text):
     keywords = getKeywords()
@@ -59,16 +65,20 @@ async def messageManager(client, message):
             if text.startswith("add"):
                 try:
                     keyword = text.split()[1]
-                    addKeyWord(keyword)
-                    await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت اضافه شد")
+                    if addKeyWord(keyword):
+                        await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت اضافه شد")
+                    else:
+                        await bot.send_message(message.chat.id, "این کلمه قبلا افزوده شده است")
                 except:
                     pass
                 
             elif text.startswith("del"):
                 try:
                     keyword = text.split()[1]
-                    delKeyWord(keyword)
-                    await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت حذف شد")
+                    if delKeyWord(keyword):
+                        await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت حذف شد")
+                    else:
+                        await bot.send_message(message.chat.id, "این کلمه در لیست کلمات وجود ندارد")
                 except:
                     pass
                 
