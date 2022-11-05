@@ -15,10 +15,10 @@ def getKeywords():
     connection_obj.close()
     return keywords
 
-async def showKeywords():
+def showKeywords():
     keywords = getKeywords()
     message = "   ".join(keywords)
-    await bot.send_message(-1001462419183, message)
+    return message
 
 def insertKeyword(keyword):
     connection_obj = sqlite3.connect('db.db')
@@ -55,11 +55,12 @@ async def messageManager(client, message):
     text = message.text
 
     try:
-        if message.chat.id == 229812662:
+        if str(message.chat.type) == "ChatType.PRIVATE":
             if text.startswith("addKeyword"):
                 try:
                     keyword = text.split()[1]
                     addKeyWord(keyword)
+                    await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت اضافه شد")
                 except:
                     pass
                 
@@ -67,35 +68,35 @@ async def messageManager(client, message):
                 try:
                     keyword = text.split()[1]
                     delKeyWord(keyword)
+                    await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت حذف شد")
                 except:
                     pass
                 
             elif text.startswith("showKeyword"):
-                await showKeywords()
+                await bot.send_message(message.chat.id, showKeywords())
                 
-        else:
-            if str(message.chat.type) == "ChatType.CHANNEL":
-                if messageValiddation(text.lower()):
-                    msg = "متن پيام:" + "\n\n" + text
-                    
-                    if str(message.chat.username) != "None":
-                        msg += "\n\n" + "لينک کانال: " + "\n\n" + "@" + str(message.chat.username)
-                        msg += "\n\n" + "لينک پيام: " + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
-                        
-                    await bot.send_message(-1001462419183, msg)
-                    
-            elif str(message.chat.type) == "ChatType.SUPERGROUP":
-                if len(text) <= 150 and messageValiddation(text.lower()):
-                    msg = "متن پيام:" + "\n\n" + text
-                    
-                    if str(message.chat.username) != "None":
-                        msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
-                        msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+        elif str(message.chat.type) == "ChatType.CHANNEL":
+            if messageValiddation(text.lower()):
+                msg = "متن پيام:" + "\n\n" + text
 
-                    if str(message.from_user.username) != "None":
-                        msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
+                if str(message.chat.username) != "None":
+                    msg += "\n\n" + "لينک کانال: " + "\n\n" + "@" + str(message.chat.username)
+                    msg += "\n\n" + "لينک پيام: " + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
 
-                    await bot.send_message(-1001462419183, msg)
+                await bot.send_message(-1001462419183, msg)
+
+        elif str(message.chat.type) == "ChatType.SUPERGROUP":
+            if len(text) <= 150 and messageValiddation(text.lower()):
+                msg = "متن پيام:" + "\n\n" + text
+
+                if str(message.chat.username) != "None":
+                    msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
+                    msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+
+                if str(message.from_user.username) != "None":
+                    msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
+
+                await bot.send_message(-1001462419183, msg)
     except:
         pass
 
