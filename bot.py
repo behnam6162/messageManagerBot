@@ -105,7 +105,7 @@ async def messageManager(client, message):
         elif str(message.chat.type) == "ChatType.CHANNEL":
             kw = messageValidation(text)
             if kw:
-                msg = "کلید: " + "\n\n" + kw + "\n\n" + "متن پيام:" + "\n\n" + text
+                msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
                 if str(message.chat.username) != "None":
                     msg += "\n\n" + "لينک کانال: " + "\n\n" + "@" + str(message.chat.username)
@@ -117,7 +117,7 @@ async def messageManager(client, message):
             if message.from_user.is_bot == False and len(text) <= 150 and messageValidation(text):
                 kw = messageValidation(text)
                 if kw:
-                    msg = "کلید: " + "\n\n" + kw + "\n\n" + "متن پيام:" + "\n\n" + text
+                    msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
                     
                     if str(message.chat.username) != "None":
                         msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
