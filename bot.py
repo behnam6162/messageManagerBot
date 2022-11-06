@@ -64,7 +64,7 @@ async def messageManager(client, message):
         if str(message.chat.type) == "ChatType.PRIVATE":
             if text.startswith("add"):
                 try:
-                    keyword = text.split()[1]
+                    keyword = text[3:].strip()
                     if addKeyWord(keyword):
                         await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت اضافه شد")
                     else:
@@ -74,7 +74,7 @@ async def messageManager(client, message):
                 
             elif text.startswith("del"):
                 try:
-                    keyword = text.split()[1]
+                    keyword = text[3:].strip()
                     if delKeyWord(keyword):
                         await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت حذف شد")
                     else:
@@ -96,7 +96,7 @@ async def messageManager(client, message):
                 await bot.send_message(-1001462419183, msg)
 
         elif str(message.chat.type) == "ChatType.SUPERGROUP":
-            if len(text) <= 150 and messageValiddation(text.lower()):
+            if message.from_user.is_bot == False and len(text) <= 150 and messageValiddation(text.lower()):
                 msg = "متن پيام:" + "\n\n" + text
 
                 if str(message.chat.username) != "None":
