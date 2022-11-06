@@ -54,8 +54,8 @@ def messageValidation(text):
     keywords = getKeywords()
     for keyword in keywords:
         if keyword in text:
-            return True
-    return False
+            return keyword
+    return None
     
 async def messageManager(client, message):
     text = message.text.lower()
@@ -86,8 +86,9 @@ async def messageManager(client, message):
                 await bot.send_message(message.chat.id, showKeywords())
                 
         elif str(message.chat.type) == "ChatType.CHANNEL":
-            if messageValidation(text):
-                msg = "متن پيام:" + "\n\n" + text
+            kw = messageValidation(text)
+            if kw:
+                msg = "کلید: " + "\n\n" + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
                 if str(message.chat.username) != "None":
                     msg += "\n\n" + "لينک کانال: " + "\n\n" + "@" + str(message.chat.username)
@@ -97,16 +98,18 @@ async def messageManager(client, message):
 
         elif str(message.chat.type) == "ChatType.SUPERGROUP":
             if message.from_user.is_bot == False and len(text) <= 150 and messageValidation(text):
-                msg = "متن پيام:" + "\n\n" + text
+                kw = messageValidation(text)
+                if kw:
+                    msg = "کلید: " + "\n\n" + kw + "\n\n" + "متن پيام:" + "\n\n" + text
+                    
+                    if str(message.chat.username) != "None":
+                        msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
+                        msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
 
-                if str(message.chat.username) != "None":
-                    msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
-                    msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+                    if str(message.from_user.username) != "None":
+                        msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
 
-                if str(message.from_user.username) != "None":
-                    msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
-
-                await bot.send_message(-1001462419183, msg)
+                    await bot.send_message(-1001462419183, msg)
     except:
         pass
 
