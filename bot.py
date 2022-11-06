@@ -29,7 +29,7 @@ def insertKeyword(keyword):
     
 def addKeyWord(keyword):
     keywords = getKeywords()
-    if keyword.lower() not in keywords:
+    if keyword not in keywords:
         insertKeyword(keyword)
         return True
     else:
@@ -44,13 +44,13 @@ def delete(keyword):
     
 def delKeyWord(keyword):
     keywords = getKeywords()
-    if keyword.lower() in keywords:
+    if keyword in keywords:
         delete(keyword)
         return True
     else:
         return False
 
-def messageValiddation(text):
+def messageValidation(text):
     keywords = getKeywords()
     for keyword in keywords:
         if keyword in text:
@@ -58,7 +58,7 @@ def messageValiddation(text):
     return False
     
 async def messageManager(client, message):
-    text = message.text
+    text = message.text.lower()
 
     try:
         if str(message.chat.type) == "ChatType.PRIVATE":
@@ -86,7 +86,7 @@ async def messageManager(client, message):
                 await bot.send_message(message.chat.id, showKeywords())
                 
         elif str(message.chat.type) == "ChatType.CHANNEL":
-            if messageValiddation(text.lower()):
+            if messageValidation(text):
                 msg = "متن پيام:" + "\n\n" + text
 
                 if str(message.chat.username) != "None":
@@ -96,7 +96,7 @@ async def messageManager(client, message):
                 await bot.send_message(-1001462419183, msg)
 
         elif str(message.chat.type) == "ChatType.SUPERGROUP":
-            if message.from_user.is_bot == False and len(text) <= 150 and messageValiddation(text.lower()):
+            if message.from_user.is_bot == False and len(text) <= 150 and messageValidation(text):
                 msg = "متن پيام:" + "\n\n" + text
 
                 if str(message.chat.username) != "None":
