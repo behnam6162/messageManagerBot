@@ -37,10 +37,11 @@ def showKeywords():
 
 def insertKeyword(keyword):
     conn = get_connection()
-    curs = conn.cursor()
-    curs.execute("INSERT INTO Keywords (name) VALUES (?)", [keyword])
-    conn.commit()
-    conn.close()
+    if conn:
+        curs = conn.cursor()
+        curs.execute("INSERT INTO Keywords (name) VALUES (?)", [keyword])
+        conn.commit()
+        conn.close()
     
 def addKeyWord(keyword):
     keywords = getKeywords()
@@ -51,11 +52,12 @@ def addKeyWord(keyword):
         return False
 
 def delete(keyword):
-    connection_obj = sqlite3.connect('db.db')
-    cursor_obj = connection_obj.cursor()
-    cursor_obj.execute("DELETE FROM Keywords WHERE name = ?", [keyword])
-    connection_obj.commit()
-    connection_obj.close()
+    conn = get_connection()
+    if conn:
+        curs = conn.cursor()
+        curs.execute("DELETE FROM Keywords WHERE name = ?", [keyword])
+        conn.commit()
+        conn.close()
     
 def delKeyWord(keyword):
     keywords = getKeywords()
