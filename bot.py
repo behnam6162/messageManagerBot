@@ -1,19 +1,34 @@
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
-import sqlite3
+import psycopg2
 
 api_id = 29560166
 api_hash = "f456d2cbdd328a5fd1cfc8c380413372"
 
 bot = Client("robot", api_id, api_hash)
 
+def get_connection():
+    try:
+        return psycopg2.connect(
+            database="postgres://ijzvxvtnrwroqe:48527b554637ce08eb55912a5c3e6aadf99460edd9584fe6699a14bc98318426@ec2-54-82-205-3.compute-1.amazonaws.com:5432/ddo4b2kv76leb4",
+            user="ijzvxvtnrwroqe",
+            password="48527b554637ce08eb55912a5c3e6aadf99460edd9584fe6699a14bc98318426",
+            host="ec2-54-82-205-3.compute-1.amazonaws.com",
+            port=5432,
+        )
+    except:
+        return False
+
 def getKeywords():
-    connection_obj = sqlite3.connect('db.db')
-    cursor_obj = connection_obj.cursor()
-    cursor_obj.execute("SELECT * FROM Keywords")
-    keywords = [item[1] for item in cursor_obj.fetchall()]
-    connection_obj.close()
-    return keywords
+    conn = get_connection()
+    if conn:
+        curs = conn.cursor()
+        curs.execute("SELECT * FROM Keywords")
+        keywords = [item[1] for item in cursor_obj.fetchall()]
+        conn.close()
+        return keywords
+    else:
+        return []
 
 def showKeywords():
     keywords = getKeywords()
@@ -21,11 +36,11 @@ def showKeywords():
     return message
 
 def insertKeyword(keyword):
-    connection_obj = sqlite3.connect('db.db')
-    cursor_obj = connection_obj.cursor()
-    cursor_obj.execute("INSERT INTO Keywords (name) VALUES (?)", [keyword])
-    connection_obj.commit()
-    connection_obj.close()
+    conn = get_connection()
+    curs = conn.cursor()
+    curs.execute("INSERT INTO Keywords (name) VALUES (?)", [keyword])
+    conn.commit()
+    conn.close()
     
 def addKeyWord(keyword):
     keywords = getKeywords()
