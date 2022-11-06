@@ -58,9 +58,9 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
-    text = message.text.lower()
-
     try:
+        text = message.text.lower()
+        
         if str(message.chat.type) == "ChatType.PRIVATE":
             if text.startswith("add"):
                 try:
