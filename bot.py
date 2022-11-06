@@ -23,7 +23,7 @@ def getKeywords():
     conn = get_connection()
     if conn:
         curs = conn.cursor()
-        curs.execute("SELECT * FROM Keywords")
+        curs.execute("SELECT * FROM sc.kw")
         keywords = [item[1] for item in cursor_obj.fetchall()]
         conn.close()
         return keywords
@@ -32,14 +32,14 @@ def getKeywords():
 
 def showKeywords():
     keywords = getKeywords()
-    message = "   ".join(keywords)
+    message = "\n".join(keywords)
     return message
 
 def insertKeyword(keyword):
     conn = get_connection()
     if conn:
         curs = conn.cursor()
-        curs.execute("INSERT INTO Keywords (name) VALUES (?)", [keyword])
+        curs.execute("INSERT INTO sc.kw (name) VALUES (%s)", [keyword])
         conn.commit()
         conn.close()
     
@@ -55,7 +55,7 @@ def delete(keyword):
     conn = get_connection()
     if conn:
         curs = conn.cursor()
-        curs.execute("DELETE FROM Keywords WHERE name = ?", [keyword])
+        curs.execute("DELETE FROM sc.kw WHERE name = %s", [keyword])
         conn.commit()
         conn.close()
     
