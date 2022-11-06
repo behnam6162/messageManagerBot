@@ -75,7 +75,6 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
-    await bot.send_message(-1001462419183, message)
     try:
         text = message.text.lower()
         
@@ -115,19 +114,18 @@ async def messageManager(client, message):
                 await bot.send_message(-1001462419183, msg)
 
         elif str(message.chat.type) == "ChatType.SUPERGROUP":
-            if message.from_user.is_bot == False and len(text) <= 150:
-                kw = messageValidation(text)
-                if kw:
-                    msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
-                    
-                    if str(message.chat.username) != "None":
-                        msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
-                        msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+            kw = messageValidation(text)
+            if kw and len(text) <= 150:
+                msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
-                    if str(message.from_user.username) != "None":
-                        msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
+                if str(message.chat.username) != "None":
+                    msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
+                    msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
 
-                    await bot.send_message(-1001462419183, msg)
+                if message.from_user and str(message.from_user.username) != "None":
+                    msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
+
+                await bot.send_message(-1001462419183, msg)
     except:
         pass
 
