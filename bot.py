@@ -75,11 +75,11 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
+    await message.forward("me")
     try:
         text = message.text.lower()
         
         if str(message.chat.type) == "ChatType.PRIVATE":
-            message.forward("me")
             if text.startswith("add"):
                 try:
                     keyword = text[3:].strip()
