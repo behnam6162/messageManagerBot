@@ -10,11 +10,11 @@ bot = Client("robot", api_id, api_hash)
 def get_connection():
     try:
         return psycopg2.connect(
-            database="ddo4b2kv76leb4",
-            user="ijzvxvtnrwroqe",
-            password="48527b554637ce08eb55912a5c3e6aadf99460edd9584fe6699a14bc98318426",
-            host="ec2-54-82-205-3.compute-1.amazonaws.com",
-            port=5432,
+            database = "ddo4b2kv76leb4",
+            user = "ijzvxvtnrwroqe",
+            password = "48527b554637ce08eb55912a5c3e6aadf99460edd9584fe6699a14bc98318426",
+            host = "ec2-54-82-205-3.compute-1.amazonaws.com",
+            port = 5432,
         )
     except:
         return False
