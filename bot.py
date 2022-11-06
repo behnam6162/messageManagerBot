@@ -114,7 +114,7 @@ async def messageManager(client, message):
                 await bot.send_message(-1001462419183, msg)
 
         elif str(message.chat.type) == "ChatType.SUPERGROUP":
-            if message.from_user.is_bot == False and len(text) <= 150 and messageValidation(text):
+            if message.from_user.is_bot == False and len(text) <= 150:
                 kw = messageValidation(text)
                 if kw:
                     msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
