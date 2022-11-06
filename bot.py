@@ -24,7 +24,7 @@ def getKeywords():
     if conn:
         curs = conn.cursor()
         curs.execute("SELECT * FROM sc.kw")
-        keywords = [item[1] for item in cursor_obj.fetchall()]
+        keywords = [item[1] for item in curs.fetchall()]
         conn.close()
         return keywords
     else:
@@ -75,7 +75,6 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
-    await message.forward("me")
     try:
         text = message.text.lower()
         
