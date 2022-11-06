@@ -75,6 +75,7 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
+    await bot.send_message(-1001462419183, message)
     try:
         text = message.text.lower()
         
@@ -114,7 +115,6 @@ async def messageManager(client, message):
                 await bot.send_message(-1001462419183, msg)
 
         elif str(message.chat.type) == "ChatType.SUPERGROUP":
-            await bot.send_message(-1001462419183, message)
             if message.from_user.is_bot == False and len(text) <= 150:
                 kw = messageValidation(text)
                 if kw:
