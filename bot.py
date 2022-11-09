@@ -125,11 +125,12 @@ async def messageManager(client, message):
                     msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
                 except:
                     pass
-                
+                '''
                 try:
                     msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
                 except:
                     pass
+                '''
 
                 await bot.send_message(-1001462419183, msg)
     except:
