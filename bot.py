@@ -106,9 +106,9 @@ async def messageManager(client, message):
             kw = messageValidation(text)
             if kw is not None:
                 #and len(text) <= 200:
-                await bot.send_message(-1001462419183, str(len(text)))
-                await bot.send_message(-1001462419183, message)
-                #await message.forward(-1001462419183)
+                #await bot.send_message(-1001462419183, str(len(text)))
+                #await bot.send_message(-1001462419183, message)
+                await message.forward(-1001462419183)
 
                 """
                 elif str(message.chat.type) == "ChatType.CHANNEL":
