@@ -106,7 +106,7 @@ async def messageManager(client, message):
             kw = messageValidation(text)
             if kw is not None and len(text) <= 200:
                 await bot.send_message(-1001462419183, message)
-                await message.forward(-1001462419183)
+                #await message.forward(-1001462419183)
 
                 """
                 elif str(message.chat.type) == "ChatType.CHANNEL":
@@ -132,12 +132,12 @@ async def messageManager(client, message):
                             msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
                         except:
                             pass
-                        '''
+                        
                         try:
                             msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
                         except:
                             pass
-                        '''
+                        
 
                         await bot.send_message(-1001462419183, msg)
                 """
