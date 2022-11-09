@@ -116,7 +116,6 @@ async def messageManager(client, message):
         elif str(message.chat.type) == "ChatType.SUPERGROUP":
             kw = messageValidation(text)
             if kw is not None and len(text) <= 200:
-                message.forward(-1001462419183)
                 msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
                 if str(message.chat.username) != "None":
