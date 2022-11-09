@@ -126,11 +126,6 @@ async def messageManager(client, message):
                     except:
                         pass
 
-                    try:
-                        msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
-                    except:
-                        pass
-
                     await bot.send_message(-1001462419183, msg)
                 
     except:
