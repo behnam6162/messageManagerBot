@@ -105,7 +105,7 @@ async def messageManager(client, message):
     else:
         kw = messageValidation(text)
         if kw is not None and len(text) <= 200:
-            message.forward(-1001462419183)
+            await message.forward(-1001462419183)
             
             """
             elif str(message.chat.type) == "ChatType.CHANNEL":
