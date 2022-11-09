@@ -104,7 +104,7 @@ async def messageManager(client, message):
                 
         elif str(message.chat.type) == "ChatType.CHANNEL":
             kw = messageValidation(text)
-            if kw:
+            if kw is not None:
                 msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
                 if str(message.chat.username) != "None":
@@ -115,7 +115,7 @@ async def messageManager(client, message):
 
         elif str(message.chat.type) == "ChatType.SUPERGROUP":
             kw = messageValidation(text)
-            if kw and len(text) <= 150:
+            if kw is not None and len(text) <= 150:
                 msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
                 if str(message.chat.username) != "None":
