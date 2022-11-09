@@ -107,9 +107,11 @@ async def messageManager(client, message):
             if kw is not None and len(text) <= 200:
                 msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
-                if str(message.chat.username) != "None":
+                try:
                     msg += "\n\n" + "لينک کانال: " + "\n\n" + "@" + str(message.chat.username)
                     msg += "\n\n" + "لينک پيام: " + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+                except:
+                    pass
 
                 await bot.send_message(-1001462419183, msg)
 
@@ -118,14 +120,16 @@ async def messageManager(client, message):
             if kw is not None and len(text) <= 200:
                 msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
-                if str(message.chat.username) != "None":
+                try:
                     msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
                     msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+                except:
+                    pass
                 
-                """
-                if message.from_user and str(message.from_user.username) != "None":
+                try:
                     msg += "\n\n" + "آيدي کاربر:" + "\n\n" + "@" + str(message.from_user.username)
-                """
+                except:
+                    pass
 
                 await bot.send_message(-1001462419183, msg)
     except:
