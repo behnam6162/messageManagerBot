@@ -105,7 +105,6 @@ async def messageManager(client, message):
         else:
             kw = messageValidation(text)
             if kw is not None and len(text) <= 200:
-                await bot.send_message(-1001462419183, kw)
                 msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
                 
                 if str(message.chat.type) == "ChatType.CHANNEL":                    
