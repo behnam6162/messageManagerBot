@@ -118,14 +118,15 @@ async def messageManager(client, message):
                         await bot.send_message(-1001462419183, msg)
 
                 elif str(message.chat.type) == "ChatType.SUPERGROUP":
-                    try:
-                        await message.forward(-1001462419183)
-                    except:
-                        if str(message.chat.username) != "None":
-                            msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
-                            msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
-
+                    if str(message.chat.username) != "None":
+                        msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
+                        msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
                         await bot.send_message(-1001462419183, msg)
+                    else:
+                        try:
+                            await message.forward(-1001462419183)
+                        except:
+                            await bot.send_message(-1001462419183, msg)
 
     except:
         pass
