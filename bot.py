@@ -122,6 +122,10 @@ async def messageManager(client, message):
                     if str(message.chat.username) != "None":
                         msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
                         msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+                        
+                        if "from_user" in message:
+                            msg += "\n\n" + "آیدی کاربر:" + "\n\n" + "@" + str(message.from_user.username)
+                            
                         await bot.send_message(-1001462419183, msg)
                     else:
                         try:
