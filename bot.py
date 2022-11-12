@@ -77,7 +77,7 @@ def messageValidation(text):
 async def messageManager(client, message):
     try:
         text = message.text.lower()
-        await bot.send_message(-1001462419183, str(type(message)))
+        await bot.send_message(-1001462419183, message)
 
         if str(message.chat.type) == "ChatType.PRIVATE":
             if text.startswith("add"):
