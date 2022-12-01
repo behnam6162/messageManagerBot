@@ -7,68 +7,24 @@ api_hash = "f456d2cbdd328a5fd1cfc8c380413372"
 
 bot = Client("robot", api_id, api_hash)
 
-def get_connection():
-    try:
-        return psycopg2.connect(
-            database = "ddo4b2kv76leb4",
-            user = "ijzvxvtnrwroqe",
-            password = "48527b554637ce08eb55912a5c3e6aadf99460edd9584fe6699a14bc98318426",
-            host = "ec2-54-82-205-3.compute-1.amazonaws.com",
-            port = 5432,
-        )
-    except:
-        return False
-
-def getKeywords():
-    conn = get_connection()
-    if conn:
-        curs = conn.cursor()
-        curs.execute("SELECT * FROM sc.kw")
-        keywords = [item[1] for item in curs.fetchall()]
-        conn.close()
-        return keywords
-    else:
-        return []
-
-def showKeywords():
-    keywords = getKeywords()
-    message = "\n".join(keywords)
-    return message
-
-def insertKeyword(keyword):
-    conn = get_connection()
-    if conn:
-        curs = conn.cursor()
-        curs.execute("INSERT INTO sc.kw (name) VALUES (%s)", [keyword])
-        conn.commit()
-        conn.close()
-    
-def addKeyWord(keyword):
-    keywords = getKeywords()
-    if keyword not in keywords:
-        insertKeyword(keyword)
-        return True
-    else:
-        return False
-
-def delete(keyword):
-    conn = get_connection()
-    if conn:
-        curs = conn.cursor()
-        curs.execute("DELETE FROM sc.kw WHERE name = %s", [keyword])
-        conn.commit()
-        conn.close()
-    
-def delKeyWord(keyword):
-    keywords = getKeywords()
-    if keyword in keywords:
-        delete(keyword)
-        return True
-    else:
-        return False
-
 def messageValidation(text):
-    keywords = getKeywords()
+    keywords = ['java', 'جاوا', 'python', 'پایتون', 'c#', 'csharp', 'سی شارپ', 'c++', 'سی پلاس پلاس',
+                'fortran', 'js', 'javascript', 'جاوا اسکریپت', 'html', 'اچ تی ام ال', 'css', 'سی اس اس',
+                'programming', 'برنامه نویسی', 'eclipse', 'اکلیپس', 'ایکلیپس', 'vscode', 'وی اس کد',
+                'machine learning', 'یادگیری ماشین', 'quera', 'کویرا', 'کوئرا', 'web design', 'طراحی وب',
+                'pascal', 'پاسکال', 'data structure', 'ساختمان داده', 'داده ساختار', 'algoritm design',
+                'طراحی الگوریتم', 'الگوریتم', 'data base', 'database', 'پایگاه داده', 'دیتابیس', 'datamining',
+                'داده کاوی', 'swing', 'javafx', 'شی گرایی', 'golang', 'go', 'زبان گو', 'زبان c',
+                'زبان سی', 'زبان r', 'kotlin', 'کاتلین', 'android', 'اندروید', 'فرترن', 'فرتران', 'طراحی سایت',
+                'react', 'vue', 'angular', 'react native', 'django', 'جنگو', 'پانداس', 'pandas', 'نامپای', 'numpy',
+                'فلسک', 'flask', 'ری اکت', 'سی پلاس', 'c+', 'لیست پیوندی', 'link list', 'linked list', 'graph', 'گراف',
+                'tkinter', 'پای کیوتی', 'pyqt', 'pygame', 'پای گیم', 'سوئینگ', 'اف ایکس', 'اف اکس', 'پشته', 'stack', 'آرایه'
+                , 'ارایه', 'array', 'php', 'پی اچ پی', 'لاراول', 'laravel', 'matlab', 'متلب', 'مطلب', 'frontend', 'front end',
+                'backend', 'back end', 'فرانت اند', 'بک اند', 'flowchart', 'algoritm', 'فلوچارت', 'sql', 'mysql', 'mongodb',
+                'postgers', 'postgersql', 'ریاضی ۱', 'ریاضی 1'
+                , 'فیزیک ۱', 'فیزیک 1', 'ریاضی', 'فیزیک', 'مبانی کامپیوتر', 'نرم افزار', 'جاوااسکریپت', 'cpp',
+                'cp', 'فلاتر', 'flutter', '++c', '+c', '#c', 'کامپایلر', 'compiler', 'کدنویسی', 'کد نویسی', 'هوش مصنوعی']
+    
     for keyword in keywords:
         if keyword in text:
             return keyword
@@ -77,60 +33,34 @@ def messageValidation(text):
 async def messageManager(client, message):
     try:
         text = message.text.lower()
+        kw = messageValidation(text)
+        if kw is not None and len(text) <= 300:
+            msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
-        if str(message.chat.type) == "ChatType.PRIVATE":
-            if text.startswith("add"):
+            if str(message.chat.type) == "ChatType.CHANNEL":                    
                 try:
-                    keyword = text[3:].strip()
-                    if addKeyWord(keyword):
-                        await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت اضافه شد")
-                    else:
-                        await bot.send_message(message.chat.id, "این کلمه قبلا افزوده شده است")
+                    await message.forward(-1001462419183)
                 except:
-                    pass
-                
-            elif text.startswith("del"):
-                try:
-                    keyword = text[3:].strip()
-                    if delKeyWord(keyword):
-                        await bot.send_message(message.chat.id, "کلمه کلیدی با موفقیت حذف شد")
-                    else:
-                        await bot.send_message(message.chat.id, "این کلمه در لیست کلمات وجود ندارد")
-                except:
-                    pass
-                
-            elif text.startswith("show"):
-                await bot.send_message(message.chat.id, showKeywords())
-    
-        else:
-            kw = messageValidation(text)
-            if kw is not None and len(text) <= 300:
-                msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
-                
-                if str(message.chat.type) == "ChatType.CHANNEL":                    
+                    if str(message.chat.username) != "None":
+                        msg += "\n\n" + "لينک کانال: " + "\n\n" + "@" + str(message.chat.username)
+                        msg += "\n\n" + "لينک پيام: " + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+
+                    await bot.send_message(-1001462419183, msg)
+
+            elif str(message.chat.type) == "ChatType.SUPERGROUP":
+                if str(message.chat.username) != "None":
+                    msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
+                    msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
+
+                    if hasattr(message, "from_user"):
+                        msg += "\n\n" + "آیدی کاربر:" + "\n\n" + "@" + str(message.from_user.username)
+
+                    await bot.send_message(-1001462419183, msg)
+                else:
                     try:
                         await message.forward(-1001462419183)
                     except:
-                        if str(message.chat.username) != "None":
-                            msg += "\n\n" + "لينک کانال: " + "\n\n" + "@" + str(message.chat.username)
-                            msg += "\n\n" + "لينک پيام: " + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
-                            
                         await bot.send_message(-1001462419183, msg)
-
-                elif str(message.chat.type) == "ChatType.SUPERGROUP":
-                    if str(message.chat.username) != "None":
-                        msg += "\n\n" + "لينک گروه:" + "\n\n" + "@" + str(message.chat.username)
-                        msg += "\n\n" + "لينک پيام:" + "\n\n" + "https://t.me/%s/%s" % (str(message.chat.username), str(message.id))
-                        
-                        if hasattr(message, "from_user"):
-                            msg += "\n\n" + "آیدی کاربر:" + "\n\n" + "@" + str(message.from_user.username)
-                                                        
-                        await bot.send_message(-1001462419183, msg)
-                    else:
-                        try:
-                            await message.forward(-1001462419183)
-                        except:
-                            await bot.send_message(-1001462419183, msg)
 
     except:
         pass
