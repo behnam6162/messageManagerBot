@@ -36,20 +36,21 @@ async def messageManager(client, message):
         file = open("index.txt", "r")
         index = int(file.read())
         file.close()
+
+        if index == 0:
+            index = 1
+        else:
+            index = 0
+
+        await bot.send_message(-1001462419183, "lashi")
+        await bot.set_profile_photo(photo=photos[index])
+
+        new_file = open(index.txt", "w")
+        new_file.write(str(index))
+        new_file.close()
     except:
         await bot.send_message(-1001462419183, "lashi")
-    
-    if index == 0:
-        index = 1
-    else:
-        index = 0
-     
-    await bot.send_message(-1001462419183, "lashi")
-    await bot.set_profile_photo(photo=photos[index])
-    
-    new_file = open(index.txt", "w")
-    new_file.write(str(index))
-    new_file.close()
+                  
                     
     try:
         text = message.text.lower()
