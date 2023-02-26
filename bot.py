@@ -85,8 +85,8 @@ async def messageManager(client, message):
     except:
         pass
 
-#messageManagerHandler = MessageHandler(messageManager)
-#bot.add_handler(messageManagerHandler)
+messageManagerHandler = MessageHandler(messageManager)
+bot.add_handler(messageManagerHandler)
 
 bot.run()
 
