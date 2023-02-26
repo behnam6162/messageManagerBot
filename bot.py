@@ -31,7 +31,6 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
-    '''
     photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]
     try:
         file = open("index.txt", "r")
@@ -51,7 +50,6 @@ async def messageManager(client, message):
     new_file = open(index.txt", "w")
     new_file.write(str(index))
     new_file.close()
-    '''
                     
     try:
         text = message.text.lower()
