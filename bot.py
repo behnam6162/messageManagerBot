@@ -31,9 +31,9 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
-    #photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]
+    '''
+    photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]
     try:
-        '''
         file = open("index.txt", "r")
         index = int(file.read())
         file.close()
@@ -49,11 +49,10 @@ async def messageManager(client, message):
         new_file = open(index.txt", "w")
         new_file.write(str(index))
         new_file.close()
-        '''
         await bot.update_profile(bio=str(len(message.text)))
     except:
         await bot.send_message(-1001462419183, "lashi")
-                  
+    '''
                     
     try:
         text = message.text.lower()
