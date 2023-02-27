@@ -31,6 +31,8 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
+    await bot.send_message(-1001462419183, "?")
+    '''
     try:
         text = message.text.lower()
         kw = messageValidation(text)
@@ -64,6 +66,7 @@ async def messageManager(client, message):
 
     except:
         pass
+    '''
 
 messageManagerHandler = MessageHandler(messageManager)
 bot.add_handler(messageManagerHandler)
