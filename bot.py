@@ -31,6 +31,7 @@ def messageValidation(text):
     return None
     
 async def messageManager(client, message):
+    '''
     try:
         ps = [p async for p in bot.get_chat_photos("me")]
         await bot.delete_profile_photos([p.file_id for p in ps])
@@ -53,6 +54,7 @@ async def messageManager(client, message):
         
     except:
         pass
+    '''
                         
     try:
         text = message.text.lower()
