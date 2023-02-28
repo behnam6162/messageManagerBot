@@ -10,9 +10,6 @@ bot = Client("robot", api_id, api_hash)
 
 async def change_profile_photo():
     try:
-        ps = [p async for p in bot.get_chat_photos("me")]
-        await bot.delete_profile_photos([p.file_id for p in ps])
-        
         photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]
         file = open("index.txt", "r")
         index = int(file.read())
@@ -24,6 +21,8 @@ async def change_profile_photo():
             index = 0
             
         await bot.set_profile_photo(photo=photos[index])
+        ps = [p async for p in bot.get_chat_photos("me")]
+        await bot.delete_profile_photos(ps[1].file_id)
         
         new_file = open("index.txt", "w")
         new_file.write(str(index))
