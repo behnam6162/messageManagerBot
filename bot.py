@@ -94,7 +94,7 @@ message_manager_handler = MessageHandler(message_hanager)
 bot.add_handler(message_manager_handler)
 
 scheduler = AsyncIOScheduler()
-scheduler.add_job(change_profile_photo, "interval", seconds=1)
+scheduler.add_job(change_profile_photo, "interval", seconds=2)
 
 scheduler.start()
 bot.run()
