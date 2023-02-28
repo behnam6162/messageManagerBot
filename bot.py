@@ -12,7 +12,7 @@ bot = Client("robot", api_id, api_hash)
 async def change_profile_photo():
     try:
         photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
-        await bot.set_profile_photo(photo=photos[time.time() % 2])
+        await bot.set_profile_photo(photo=photos[int(time.time()) % 2])
         ps = [p async for p in bot.get_chat_photos("me")]
         await bot.delete_profile_photos(ps[1].file_id)        
     except:
@@ -42,6 +42,7 @@ def message_validation(text):
     return None
     
 async def message_hanager(client, message):
+    '''
     try:
         photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
         await bot.set_profile_photo(photo=photos[time.time() % 2])
@@ -49,6 +50,7 @@ async def message_hanager(client, message):
         await bot.delete_profile_photos(ps[1].file_id)        
     except:
         pass
+    '''
     
     try:
         text = message.text.lower()
@@ -87,10 +89,10 @@ async def message_hanager(client, message):
 message_manager_handler = MessageHandler(message_hanager)
 bot.add_handler(message_manager_handler)
 
-#scheduler = AsyncIOScheduler()
-#scheduler.add_job(change_profile_photo, "interval", seconds=2)
+scheduler = AsyncIOScheduler()
+scheduler.add_job(change_profile_photo, "interval", seconds=2)
 
-#scheduler.start()
+scheduler.start()
 bot.run()
 
 
