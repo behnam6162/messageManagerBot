@@ -16,8 +16,8 @@ async def change_profile_photo():
         ps = [p async for p in bot.get_chat_photos("me")]
         if len(ps) > 1:
             await bot.delete_profile_photos(ps[1].file_id)        
-    except:
-        pass
+    except Exception as e:
+        await bot.send_message(-1001462419183, str(e))
 
 def message_validation(text):
     keywords = ['java', 'جاوا', 'python', 'پایتون', 'c#', 'csharp', 'سی شارپ', 'c++', 'سی پلاس پلاس',
