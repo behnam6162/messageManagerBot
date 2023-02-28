@@ -2,6 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import psycopg2
+import time
 
 api_id = 29560166
 api_hash = "f456d2cbdd328a5fd1cfc8c380413372"
@@ -10,24 +11,10 @@ bot = Client("robot", api_id, api_hash)
 
 async def change_profile_photo():
     try:
-        photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]
-        file = open("index.txt", "r")
-        index = int(file.read())
-        file.close()
-        
-        if index == 0:
-            index = 1
-        else:
-            index = 0
-            
-        await bot.set_profile_photo(photo=photos[index])
+        photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
+        await bot.set_profile_photo(photo=photos[time.time() % 2])
         ps = [p async for p in bot.get_chat_photos("me")]
-        await bot.delete_profile_photos(ps[1].file_id)
-        
-        new_file = open("index.txt", "w")
-        new_file.write(str(index))
-        new_file.close()
-        
+        await bot.delete_profile_photos(ps[1].file_id)        
     except:
         pass
 
