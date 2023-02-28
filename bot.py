@@ -7,6 +7,28 @@ api_hash = "f456d2cbdd328a5fd1cfc8c380413372"
 
 bot = Client("robot", api_id, api_hash)
 
+def change_profile_photo():
+    try:
+        ps = [p async for p in bot.get_chat_photos("me")]
+        await bot.delete_profile_photos([p.file_id for p in ps])
+        
+        photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]
+        file = open("index.txt", "r")
+        index = int(file.read())
+        file.close()
+        
+        if index == 0:
+            index = 1
+        else:
+            index = 0
+        await bot.set_profile_photo(photo=photos[index])
+        new_file = open("index.txt", "w")
+        new_file.write(str(index))
+        new_file.close()
+        
+    except:
+        pass
+
 def messageValidation(text):
     keywords = ['java', 'جاوا', 'python', 'پایتون', 'c#', 'csharp', 'سی شارپ', 'c++', 'سی پلاس پلاس',
                 'fortran', 'js', 'javascript', 'جاوا اسکریپت', 'html', 'اچ تی ام ال', 'css', 'سی اس اس',
@@ -92,6 +114,8 @@ async def messageManager(client, message):
 
 messageManagerHandler = MessageHandler(messageManager)
 bot.add_handler(messageManagerHandler)
+
+change_profile_photo()
 
 bot.run()
 
