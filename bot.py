@@ -21,7 +21,9 @@ with bot:
             index = 1
         else:
             index = 0
+            
         await bot.set_profile_photo(photo=photos[index])
+        
         new_file = open("index.txt", "w")
         new_file.write(str(index))
         new_file.close()
