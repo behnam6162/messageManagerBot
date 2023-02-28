@@ -1,5 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import psycopg2
 
 api_id = 29560166
@@ -7,7 +8,7 @@ api_hash = "f456d2cbdd328a5fd1cfc8c380413372"
 
 bot = Client("robot", api_id, api_hash)
 
-with bot:
+async def change_profile_photo():
     try:
         ps = [p async for p in bot.get_chat_photos("me")]
         await bot.delete_profile_photos([p.file_id for p in ps])
@@ -31,7 +32,7 @@ with bot:
     except:
         pass
 
-def messageValidation(text):
+def message_validation(text):
     keywords = ['java', 'جاوا', 'python', 'پایتون', 'c#', 'csharp', 'سی شارپ', 'c++', 'سی پلاس پلاس',
                 'fortran', 'js', 'javascript', 'جاوا اسکریپت', 'html', 'اچ تی ام ال', 'css', 'سی اس اس',
                 'programming', 'برنامه نویسی', 'eclipse', 'اکلیپس', 'ایکلیپس', 'vscode', 'وی اس کد',
@@ -54,35 +55,10 @@ def messageValidation(text):
             return keyword
     return None
     
-async def messageManager(client, message):
-    '''
-    try:
-        ps = [p async for p in bot.get_chat_photos("me")]
-        await bot.delete_profile_photos([p.file_id for p in ps])
-        
-        photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]
-        file = open("index.txt", "r")
-        index = int(file.read())
-        file.close()
-        
-        if index == 0:
-            index = 1
-        else:
-            index = 0
-
-        await bot.set_profile_photo(photo=photos[index])
-
-        new_file = open("index.txt", "w")
-        new_file.write(str(index))
-        new_file.close()
-        
-    except:
-        pass
-    '''
-                        
+async def message_hanager(client, message):             
     try:
         text = message.text.lower()
-        kw = messageValidation(text)
+        kw = message_validation(text)
         if kw is not None and len(text) <= 300:
             msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
@@ -114,8 +90,13 @@ async def messageManager(client, message):
     except:
         pass
 
-messageManagerHandler = MessageHandler(messageManager)
-bot.add_handler(messageManagerHandler)
+message_manager_handler = MessageHandler(message_hanager)
+bot.add_handler(message_manager_handler)
 
+scheduler = AsyncIOScheduler()
+scheduler.add_job(change_profile_photo, "interval", seconds=1)
+
+scheduler.start()
 bot.run()
+
 
