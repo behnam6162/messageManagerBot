@@ -42,7 +42,6 @@ async def messageManager(client, message):
         else:
             index = 0
 
-        await bot.send_message(-1001462419183, "lashi")
         await bot.set_profile_photo(photo=photos[index])
 
         new_file = open("index.txt", "w")
