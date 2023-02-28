@@ -14,7 +14,8 @@ async def change_profile_photo():
         photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
         await bot.set_profile_photo(photo=photos[int(time.time()) % 2])
         ps = [p async for p in bot.get_chat_photos("me")]
-        await bot.delete_profile_photos(ps[1].file_id)        
+        if len(ps) > 1:
+            await bot.delete_profile_photos(ps[1].file_id)        
     except:
         pass
 
