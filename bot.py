@@ -7,7 +7,7 @@ api_hash = "f456d2cbdd328a5fd1cfc8c380413372"
 
 bot = Client("robot", api_id, api_hash)
 
-def change_profile_photo():
+with bot:
     try:
         ps = [p async for p in bot.get_chat_photos("me")]
         await bot.delete_profile_photos([p.file_id for p in ps])
@@ -114,8 +114,6 @@ async def messageManager(client, message):
 
 messageManagerHandler = MessageHandler(messageManager)
 bot.add_handler(messageManagerHandler)
-
-change_profile_photo()
 
 bot.run()
 
