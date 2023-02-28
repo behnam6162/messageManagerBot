@@ -10,6 +10,7 @@ api_hash = "f456d2cbdd328a5fd1cfc8c380413372"
 
 bot = Client("robot", api_id, api_hash)
 
+'''
 async def change_profile_photo():
     try:
         #photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
@@ -19,6 +20,7 @@ async def change_profile_photo():
             await bot.send(pyrogram.raw.functions.photos.update_profile_photo(ps[1].file_id))        
     except Exception as e:
         await bot.send_message(-1001462419183, str(e))
+'''
 
 def message_validation(text):
     keywords = ['java', 'جاوا', 'python', 'پایتون', 'c#', 'csharp', 'سی شارپ', 'c++', 'سی پلاس پلاس',
@@ -91,10 +93,10 @@ async def message_hanager(client, message):
 message_manager_handler = MessageHandler(message_hanager)
 bot.add_handler(message_manager_handler)
 
-scheduler = AsyncIOScheduler()
-scheduler.add_job(change_profile_photo, "interval", seconds=3)
+#scheduler = AsyncIOScheduler()
+#scheduler.add_job(change_profile_photo, "interval", seconds=3)
 
-scheduler.start()
+#scheduler.start()
 bot.run()
 
 
