@@ -46,6 +46,7 @@ def message_validation(text):
     return None
     
 async def message_hanager(client, message):
+    
     '''
     try:
         photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
@@ -57,6 +58,8 @@ async def message_hanager(client, message):
     '''
     
     try:
+        await bot.send_message(-1001462419183, str(message.chat))
+        
         text = message.text.lower()
         kw = message_validation(text)
         if kw is not None and len(text) <= 300:
