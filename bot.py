@@ -66,7 +66,7 @@ async def message_hanager(client, message):
         text = message.text.lower()
         
         if text == "count":
-            counter(10)
+            await counter(10)
             
             
         kw = message_validation(text)
