@@ -24,7 +24,8 @@ async def change_profile_photo():
 
 async def counter(n):
     for i in range(1, n + 1):
-        await bot.send_message(-1001755213305, str(i))
+        # 1001755213305
+        await bot.send_message(-1001462419183, str(i))
 
 def message_validation(text):
     keywords = ['java', 'جاوا', 'python', 'پایتون', 'c#', 'csharp', 'سی شارپ', 'c++', 'سی پلاس پلاس',
