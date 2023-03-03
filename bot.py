@@ -22,6 +22,10 @@ async def change_profile_photo():
         await bot.send_message(-1001462419183, str(e))
 '''
 
+def counter(number):
+    for i in range(1, number + 1):
+        await bot.send_message(-1001755213305, str(i))
+
 def message_validation(text):
     keywords = ['java', 'جاوا', 'python', 'پایتون', 'c#', 'csharp', 'سی شارپ', 'c++', 'سی پلاس پلاس',
                 'fortran', 'js', 'javascript', 'جاوا اسکریپت', 'html', 'اچ تی ام ال', 'css', 'سی اس اس',
@@ -57,10 +61,13 @@ async def message_hanager(client, message):
         pass
     '''
     
-    try:
-        await bot.send_message(-1001462419183, str(message.chat))
-        
+    try:        
         text = message.text.lower()
+        
+        if text.startswith("count"):
+            counter(int(text.split()[1]))
+            
+            
         kw = message_validation(text)
         if kw is not None and len(text) <= 300:
             msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
