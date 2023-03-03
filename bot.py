@@ -22,8 +22,8 @@ async def change_profile_photo():
         await bot.send_message(-1001462419183, str(e))
 '''
 
-def counter(number):
-    for i in range(1, number + 1):
+async def counter(n):
+    for i in range(1, n + 1):
         await bot.send_message(-1001755213305, str(i))
 
 def message_validation(text):
