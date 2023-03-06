@@ -69,9 +69,9 @@ async def message_hanager(client, message):
         text = message.text.lower()
         
         if text != "" and text.split()[0] == "pc":
-            await counter(int(text.split()[1]), int(text.split()[2]))
+            await plus_counter(int(text.split()[1]), int(text.split()[2]))
         elif text != "" and text.split()[0] == "mc":
-            await counter(int(text.split()[1]), int(text.split()[2]))
+            await minus_counter(int(text.split()[1]), int(text.split()[2]))
             
             
         kw = message_validation(text)
