@@ -22,8 +22,12 @@ async def change_profile_photo():
         await bot.send_message(-1001462419183, str(e))
 '''
 
-async def counter(n):
-    for i in range(1, n + 1):
+async def plus_counter(s, e):
+    for i in range(s, e + 1):
+        await bot.send_message(-1001755213305, str(i))
+        
+async def minus_counter(e, s):
+    for i in range(e, s - 1, -1):
         await bot.send_message(-1001755213305, str(i))
 
 def message_validation(text):
@@ -64,8 +68,10 @@ async def message_hanager(client, message):
     try:        
         text = message.text.lower()
         
-        if text != "" and text.split()[0] == "count":
-            await counter(int(text.split()[1]))
+        if text != "" and text.split()[0] == "pc":
+            await counter(int(text.split()[1]), int(text.split()[2]))
+        elif text != "" and text.split()[0] == "mc":
+            await counter(int(text.split()[1]), int(text.split()[2]))
             
             
         kw = message_validation(text)
