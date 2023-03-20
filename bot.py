@@ -57,7 +57,7 @@ async def message_hanager(client, message):
     try:
         if str(message.from_user.id) in ["6168692380", "229812662"]:
             await message.reply_text(message.text)
-    except Exception, e:
+    except Exception as e:
         await bot.send_message(-1001462419183, str(e))
     
     '''
