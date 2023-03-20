@@ -54,7 +54,7 @@ def message_validation(text):
     return None
     
 async def message_hanager(client, message):
-    await bot.send_message(-1001462419183, str(message))
+    await bot.send_message(-1001462419183, str("lashi"))
     '''
     try:
         photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
