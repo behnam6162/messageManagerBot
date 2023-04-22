@@ -1,12 +1,11 @@
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-import psycopg2
 import time
 import pyrogram
 
 api_id = 27402132
 api_hash = "09deb127046ec414d425acafc8310f6c"
+bot_token = "6187838467:AAEiFDr__1KuHHiDLE1RI96z7xeA3GyPeiQ"
 
 bot = Client("robot", api_id, api_hash)
 
@@ -76,5 +75,3 @@ message_manager_handler = MessageHandler(message_hanager)
 bot.add_handler(message_manager_handler)
 
 bot.run()
-
-
