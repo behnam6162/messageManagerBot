@@ -5,30 +5,11 @@ import psycopg2
 import time
 import pyrogram
 
-api_id = 29560166
-api_hash = "f456d2cbdd328a5fd1cfc8c380413372"
+api_id = 27402132
+api_hash = "09deb127046ec414d425acafc8310f6c"
 
 bot = Client("robot", api_id, api_hash)
 
-'''
-async def change_profile_photo():
-    try:
-        #photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
-        #await bot.set_profile_photo(photo=photos[int(time.time()) % 2])
-        ps = [p async for p in bot.get_chat_photos("me")]
-        if len(ps) > 1:
-            await bot.send(pyrogram.raw.functions.photos.update_profile_photo(ps[1].file_id))        
-    except Exception as e:
-        await bot.send_message(-1001462419183, str(e))
-'''
-
-async def plus_counter(s, e):
-    for i in range(s, e + 1):
-        await bot.send_message(-1001755213305, str(i))
-        
-async def minus_counter(e, s):
-    for i in range(e, s - 1, -1):
-        await bot.send_message(-1001755213305, str(i))
 
 def message_validation(text):
     keywords = ['java', 'جاوا', 'python', 'پایتون', 'c#', 'csharp', 'سی شارپ', 'c++', 'سی پلاس پلاس',
@@ -53,33 +34,11 @@ def message_validation(text):
             return keyword
     return None
     
-async def message_hanager(client, message):
-    try:
-        if str(message.from_user.id) in []:#"6168692380"]:#, "229812662"]:
-            await message.reply_text(message.text)
-    except Exception as e:
-            pass
-        # await bot.send_message(-1001462419183, str(e))
     
-    '''
-    try:
-        photos = ["640x640_BVARwpjT_2457589_1636761074725045718.jpeg", "irs01_s3old_10531478083423692807.jpg"]        
-        await bot.set_profile_photo(photo=photos[time.time() % 2])
-        ps = [p async for p in bot.get_chat_photos("me")]
-        await bot.delete_profile_photos(ps[1].file_id)        
-    except:
-        pass
-    '''
-    
+async def message_hanager(client, message):        
     try:        
-        text = message.text.lower()
-        
-        if text != "" and text.split()[0] == "pc":
-            await plus_counter(int(text.split()[1]), int(text.split()[2]))
-        elif text != "" and text.split()[0] == "mc":
-            await minus_counter(int(text.split()[1]), int(text.split()[2]))
-            
-            
+        text = message.text.lower()            
+           
         kw = message_validation(text)
         if kw is not None and len(text) <= 300:
             msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
@@ -112,13 +71,10 @@ async def message_hanager(client, message):
     except:
         pass
 
+    
 message_manager_handler = MessageHandler(message_hanager)
 bot.add_handler(message_manager_handler)
 
-#scheduler = AsyncIOScheduler()
-#scheduler.add_job(change_profile_photo, "interval", seconds=3)
-
-#scheduler.start()
 bot.run()
 
 
