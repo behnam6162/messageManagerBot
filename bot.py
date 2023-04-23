@@ -7,7 +7,7 @@ api_id = 27402132
 api_hash = "09deb127046ec414d425acafc8310f6c"
 bot_token = "6187838467:AAEiFDr__1KuHHiDLE1RI96z7xeA3GyPeiQ"
 
-bot = Client("robot", api_id, api_hash)
+bot = Client("robot", api_id, api_hash, bot_token)
 
 
 def message_validation(text):
