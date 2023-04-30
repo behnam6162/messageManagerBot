@@ -24,9 +24,10 @@ def message_validation(text):
                 'tkinter', 'پای کیوتی', 'pyqt', 'pygame', 'پای گیم', 'سوئینگ', 'اف ایکس', 'اف اکس', 'پشته', 'stack', 'آرایه'
                 , 'ارایه', 'array', 'php', 'پی اچ پی', 'لاراول', 'laravel', 'matlab', 'متلب', 'مطلب', 'frontend', 'front end',
                 'backend', 'back end', 'فرانت اند', 'بک اند', 'flowchart', 'algoritm', 'فلوچارت', 'sql', 'mysql', 'mongodb',
-                'postgers', 'postgersql', 'ریاضی ۱', 'ریاضی 1'
-                , 'فیزیک ۱', 'فیزیک 1', 'ریاضی', 'فیزیک', 'مبانی کامپیوتر', 'نرم افزار', 'جاوااسکریپت', 'cpp',
-                'cp', 'فلاتر', 'flutter', '++c', '+c', '#c', 'کامپایلر', 'compiler', 'کدنویسی', 'کد نویسی', 'هوش مصنوعی']
+                'postgers', 'postgersql', 'ریاضی ۱', 'ریاضی 1',
+                'فیزیک ۱', 'فیزیک 1', 'ریاضی', 'فیزیک', 'مبانی کامپیوتر', 'نرم افزار', 'جاوااسکریپت', 'cpp',
+                'cp', 'فلاتر', 'flutter', '++c', '+c', '#c', 'کامپایلر', 'compiler', 'کدنویسی', 'کد نویسی', 'هوش مصنوعی', 
+                'کسی', 'تمرین', 'پروژه', 'بلد', 'بلده', 'مسلط', 'تسلط']
     
     for keyword in keywords:
         if keyword in text:
@@ -39,7 +40,7 @@ async def message_hanager(client, message):
         text = message.text.lower()            
            
         kw = message_validation(text)
-        if kw is not None and len(text) <= 300:
+        if kw is not None and len(text) <= 150:
             msg = "کلید: " + kw + "\n\n" + "متن پيام:" + "\n\n" + text
 
             if str(message.chat.type) == "ChatType.CHANNEL":                    
