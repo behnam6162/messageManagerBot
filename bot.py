@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
-import time
 import pyrogram
 
 api_id = 27402132
